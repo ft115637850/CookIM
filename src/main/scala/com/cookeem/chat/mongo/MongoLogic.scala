@@ -174,6 +174,21 @@ object MongoLogic {
     }.flatMap(t => t)
   }
 
+  def fetchUser(login: String): Future[(String, String)] = {
+    for {
+      user <- findCollectionOne[User](usersCollection, document("login" -> login))
+      (pwdSha1, uid) <- {
+        if (user != null) {
+          Future(user.password, user._id)
+        } else {
+          Future("", "")
+        }
+      }
+    } yield {
+      (pwdSha1, uid)
+    }
+  }
+
   def loginAction(login: String, pwd: String): Future[(String, String)] = {
     for {
       user <- findCollectionOne[User](usersCollection, document("login" -> login))
