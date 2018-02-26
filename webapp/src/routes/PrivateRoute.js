@@ -11,7 +11,7 @@ const cookies = new Cookies();
 const mapStateToProps = () => {
 	return {
 		// TO DO: validate token
-		isAuthenticated: cookies.get('token') !== undefined
+		isAuthenticated: false // cookies.get('token') !== undefined
 	};
 };
 

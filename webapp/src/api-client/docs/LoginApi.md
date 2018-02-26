@@ -1,6 +1,6 @@
 # rescaClient.LoginApi
 
-All URIs are relative to *http://127.0.0.1:7443/api/v0*
+All URIs are relative to *http://127.0.0.1:8080/api/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

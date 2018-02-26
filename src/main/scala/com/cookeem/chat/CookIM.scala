@@ -5,6 +5,11 @@ import java.security.{KeyStore, SecureRandom}
 import javax.net.ssl.{KeyManagerFactory, SSLContext, TrustManagerFactory}
 
 import akka.actor.{ActorSystem, Props}
+import akka.http.scaladsl.model.headers.{HttpOrigin, HttpOriginRange}
+import akka.http.scaladsl.model.HttpMethods._
+import akka.http.scaladsl.model.StatusCodes
+import akka.http.scaladsl.server.{ExceptionHandler, RejectionHandler}
+import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.{ConnectionContext, Http, HttpsConnectionContext}
 import akka.stream.ActorMaterializer
 import com.cookeem.chat.common.CommonUtils._
@@ -13,6 +18,10 @@ import com.cookeem.chat.websocket.NotificationActor
 import com.typesafe.config.ConfigFactory
 import org.apache.commons.cli.{DefaultParser, HelpFormatter, Options, Option => CliOption}
 import com.cookeem.chat.common.CommonUtils
+import ch.megard.akka.http.cors.CorsDirectives._
+import ch.megard.akka.http.cors.CorsSettings
+
+import scala.collection.immutable
 
 /**
   * Created by cookeem on 16/9/25.
@@ -133,7 +142,31 @@ object CookIM extends App {
       implicit val materializer = ActorMaterializer()
       import system.dispatcher
       implicit val notificationActor = system.actorOf(Props(classOf[NotificationActor]))
-      Http().bindAndHandle(Route.logRoute, "0.0.0.0", webPort, connectionContext = serverContext)
+
+      val settings = CorsSettings.defaultSettings.copy(
+        allowedOrigins = HttpOriginRange(
+          HttpOrigin("http://localhost:3000")
+        ),
+        allowedMethods = immutable.Seq(GET, POST, HEAD, OPTIONS, PUT)
+      )
+
+      val rejectionHandler = corsRejectionHandler withFallback RejectionHandler.default
+
+      val exceptionHandler = ExceptionHandler {
+        case e: NoSuchElementException => complete(StatusCodes.NotFound -> e.getMessage)
+      }
+
+      val handleErrors = handleRejections(rejectionHandler) & handleExceptions(exceptionHandler)
+
+      val route = handleRejections(corsRejectionHandler) {
+        cors(settings)(
+          handleErrors {
+            Route.logRoute
+          }
+        )
+      }
+
+      Http().bindAndHandle(route, "0.0.0.0", webPort, connectionContext = serverContext)
       consoleLog("INFO",s"CookIM server started! Access url: https://$hostName:$webPort/")
     }
   } catch {

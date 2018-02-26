@@ -32,7 +32,8 @@ libraryDependencies ++= {
     "commons-cli" % "commons-cli" % "1.4",
     "io.jsonwebtoken" % "jjwt" % "0.7.0",
     "org.reactivemongo" %% "reactivemongo" % reactivemongoV,
-    "org.reactivemongo" %% "reactivemongo-play-json" % reactivemongoV
+    "org.reactivemongo" %% "reactivemongo-play-json" % reactivemongoV,
+    "ch.megard" %% "akka-http-cors" % "0.1.11"
  )
 }
 

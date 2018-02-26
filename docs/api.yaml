@@ -1,0 +1,85 @@
+swagger: '2.0'
+info:
+  title: cookim
+  version: 1.0.0
+host: 127.0.0.1:8080
+schemes:
+  - http
+basePath: /api/v2
+produces:
+  - application/json
+security:
+  - basic: []
+  - oauth: []
+securityDefinitions:
+  basic:
+    type: basic
+    flow: password
+  oauth:
+    type: oauth2
+    flow: password
+paths:
+  /ping:
+    get:
+      summary: ping api server
+      operationId: pingPong
+      tags:
+        - pingPong
+      responses:
+        200:
+          description: returns pong
+          schema:
+              $ref: '#/definitions/PingPong'
+  /login:
+    get:
+      summary: login server
+      operationId: login
+      tags:
+        - login
+      responses:
+        200:
+          description: returns token
+          schema:
+              $ref: '#/definitions/LoginResult'
+  /getContent:
+    get:
+      summary: get content
+      operationId: getContent
+      tags:
+        - getContent
+      responses:
+        200:
+          description: returns content
+          schema:
+              $ref: '#/definitions/Content'
+definitions:
+  PingPong:
+    type: object
+    properties:
+      result:
+        type: string
+  LoginResult:
+    type: object
+    properties:
+      token:
+        type: string
+  Content:
+    type: object
+    properties:
+      friends:
+        type: array
+        items:
+          $ref: '#/definitions/Friend'
+  Friend:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      gender:
+        type: string
+      status:
+        type: string
+      avatar:
+        type: string
