@@ -4,7 +4,8 @@ import actionCreators from './ActionCreators';
 const {
 	pingSuccess,
 	pingFailure,
-	loginSuccess
+	loginSuccess,
+	loginFailure
 } = actionCreators;
 
 const cookies = new Cookies();
@@ -29,8 +30,13 @@ function loginRequest(values) {
 			.then(res => {
 				let expiresDate = new Date();
 				expiresDate.setTime(expiresDate.getTime() + (15 * 60 * 1000));
-				cookies.set('token', res.token, { path: '/', expires: expiresDate });
-				dispatch(loginSuccess(res.token));
+				if (res.userToken !== undefined && res.userToken !== null && res.userToken !== '') {
+					cookies.set('token', res.userToken, { path: '/', expires: expiresDate });
+					dispatch(loginSuccess(res.userToken));
+					return;
+				}
+				cookies.remove('token');
+				dispatch(loginFailure(res.msg));
 			})
 			.catch(res => console.log(res));
 	};

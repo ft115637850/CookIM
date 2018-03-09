@@ -61,7 +61,13 @@ definitions:
   LoginResult:
     type: object
     properties:
-      token:
+      login:
+        type: string
+      uid:
+        type: string
+      userToken:
+        type: string
+      msg:
         type: string
   Content:
     type: object

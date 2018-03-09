@@ -1,8 +1,11 @@
-# rescaClient.LoginResult
+# CookIM.LoginResult
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**token** | **String** |  | [optional] 
+**login** | **String** |  | [optional] 
+**uid** | **String** |  | [optional] 
+**userToken** | **String** |  | [optional] 
+**msg** | **String** |  | [optional] 
 
 

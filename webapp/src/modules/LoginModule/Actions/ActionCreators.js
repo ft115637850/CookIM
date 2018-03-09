@@ -27,8 +27,18 @@ function loginSuccess(token) {
 	};
 }
 
+function loginFailure(errMsg) {
+	return {
+		type: types.LOGIN_FAILURE,
+		payload: {
+			errMsg
+		}
+	};
+}
+
 export default {
 	pingSuccess,
 	pingFailure,
-	loginSuccess
+	loginSuccess,
+	loginFailure
 };

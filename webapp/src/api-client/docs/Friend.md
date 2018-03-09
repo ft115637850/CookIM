@@ -1,4 +1,4 @@
-# rescaClient.Friend
+# CookIM.Friend
 
 ## Properties
 Name | Type | Description | Notes

@@ -1,4 +1,4 @@
-# rescaClient.Content
+# CookIM.Content
 
 ## Properties
 Name | Type | Description | Notes

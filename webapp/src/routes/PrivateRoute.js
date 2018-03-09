@@ -5,13 +5,23 @@ import {
 	Redirect,
 	withRouter
 } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
-const mapStateToProps = () => {
+const mapDispatchToProps = () => {
 	return {
-		// TO DO: validate token
-		isAuthenticated: false // cookies.get('token') !== undefined
+		isAuthenticated: () => {
+			const token = cookies.get('token');
+			if (token === undefined) {
+				return false;
+			}
+			const decoded = jwtDecode(token, {header: true});
+			if (decoded.uid === undefined || decoded.uid === '') {
+				return false;
+			}
+			return true;
+		}
 	};
 };
 
@@ -20,7 +30,7 @@ class PrivateRoute extends React.Component {
 		const { component: Component, isAuthenticated, ...rest } = this.props;
 		return (
 			<Route {...rest} render={props => (
-				isAuthenticated ? (
+				isAuthenticated() ? (
 					<Component {...props}/>
 				) : (
 					<Redirect to={{
@@ -35,4 +45,4 @@ class PrivateRoute extends React.Component {
 	}
 }
 
-export default withRouter(connect(mapStateToProps, null)(PrivateRoute));
+export default withRouter(connect(null, mapDispatchToProps)(PrivateRoute));

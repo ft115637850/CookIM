@@ -56,17 +56,38 @@ export default class LoginResult {
             
             
 
-            if (data.hasOwnProperty('token')) {
-                obj['token'] = ApiClient.convertToType(data['token'], 'String');
+            if (data.hasOwnProperty('login')) {
+                obj['login'] = ApiClient.convertToType(data['login'], 'String');
+            }
+            if (data.hasOwnProperty('uid')) {
+                obj['uid'] = ApiClient.convertToType(data['uid'], 'String');
+            }
+            if (data.hasOwnProperty('userToken')) {
+                obj['userToken'] = ApiClient.convertToType(data['userToken'], 'String');
+            }
+            if (data.hasOwnProperty('msg')) {
+                obj['msg'] = ApiClient.convertToType(data['msg'], 'String');
             }
         }
         return obj;
     }
 
     /**
-    * @member {String} token
+    * @member {String} login
     */
-    token = undefined;
+    login = undefined;
+    /**
+    * @member {String} uid
+    */
+    uid = undefined;
+    /**
+    * @member {String} userToken
+    */
+    userToken = undefined;
+    /**
+    * @member {String} msg
+    */
+    msg = undefined;
 
 
 

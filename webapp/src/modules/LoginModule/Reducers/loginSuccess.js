@@ -6,6 +6,7 @@ function loginSuccess(state, action) {
 		userData: {
 			$set: {
 				token: token,
+				errMsg: undefined,
 				isAuthenticated: true
 			}
 		}

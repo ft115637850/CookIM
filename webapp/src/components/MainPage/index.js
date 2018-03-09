@@ -4,16 +4,16 @@ import MainPageModule from '../../modules/MainPageModule';
 const { selectors, actions } = MainPageModule;
 
 const mapStateToProps = state => {
-	return {
+	return {/*
 		friends: selectors.allFriends(state),
 		idleFriends: selectors.idleFriends(state),
-		busyFriends: selectors.busyFriends(state)
+		busyFriends: selectors.busyFriends(state)*/
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		getContent: () => dispatch(actions.getContent())
+		//getContent: () => dispatch(actions.getContent())
 	};
 };
 

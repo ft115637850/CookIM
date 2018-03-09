@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field } from 'redux-form';
 import {Redirect} from 'react-router-dom';
+import Snackbar from 'material-ui/Snackbar';
 import Paper from 'material-ui/Paper';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -12,17 +13,12 @@ import IconKey from 'material-ui/svg-icons/communication/vpn-key';
 import IconButton from 'material-ui/IconButton';
 import Checkbox from 'material-ui/Checkbox';
 import Strings from '../../strings';
+import Title from '../common/Title';
+import Footer from '../common/Footer';
+import {email, maxLength, minLength} from '../common/validations';
 
-const Title = () => (
-	<div style={{fontSize: '18px', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-		<img style={{paddingRight: '20px'}} height="35px" width="35px" src="cookim.svg"/>
-		<span>CookIM - User login</span>
-	</div>
-);
-
-const Footer = () => (
-	<div style={{fontSize: '18px', textAlign: 'center'}}>© 2017 Copyright cookeem.com</div>
-);
+const minLength6 = minLength(6);
+const maxLength18 = maxLength(18);
 
 const RenderField = ({ input, label, type, meta: { touched, error } }) => (
 	<div style={{flex: 1, paddingRight: '20px'}}>
@@ -31,8 +27,8 @@ const RenderField = ({ input, label, type, meta: { touched, error } }) => (
 			type={type}
 			floatingLabelText={label}
 			fullWidth={true}
+			errorText={touched && error}
 		/>
-		{touched && error && <span>{error}</span>}
 	</div>
 );
 
@@ -46,7 +42,7 @@ const style = {
 
 class Login extends React.Component {
 	render() {
-		const { loginRequest, isAuthenticated, error, handleSubmit, pristine, reset, submitting } = this.props;
+		const { loginRequest, isAuthenticated, errMsg, handleSubmit, pristine, reset, submitting, clearLoginErr } = this.props;
 		const { from } = this.props.location.state || { from: { pathname: '/mainPage' } };
 		if (isAuthenticated) {
 			return (
@@ -56,7 +52,7 @@ class Login extends React.Component {
 
 		return (
 			<div style={{height: 'calc(-16px + 100vh)', display: 'flex', flexDirection: 'column'}}>
-				<AppBar showMenuIconButton={false} title={<Title/>} />
+				<AppBar showMenuIconButton={false} title={<Title moduleName="User login"/>} />
 				<Paper style={style} zDepth={2}>
 					<form>
 						<h2 style={{textAlign: 'center'}}>User login</h2>
@@ -67,6 +63,7 @@ class Login extends React.Component {
 								type="text"
 								component={RenderField}
 								label="Username"
+								validate={email}
 							/>
 						</div>
 						<div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', maxWidth: '450px', margin: '0 auto'}}>
@@ -76,6 +73,7 @@ class Login extends React.Component {
 								type="password"
 								component={RenderField}
 								label="Password"
+								validate={[maxLength18, minLength6]}
 							/>
 						</div>
 						<div style={{display: 'flex', flexDirection: 'row', maxWidth: '450px', padding: '15px 0 15px 17px', margin: '0 auto'}}>
@@ -87,14 +85,20 @@ class Login extends React.Component {
 						</div>
 						<div style={{display: 'flex', flexDirection: 'row', maxWidth: '450px', margin: '0 auto'}}>
 							<div style={{paddingLeft: 50, flex: '1'}}>
-								<RaisedButton label={Strings.login.login} icon={<IconLogin/>} primary={true} onClick={handleSubmit(loginRequest)} />
+								<RaisedButton label={Strings.login.login} icon={<IconLogin/>} primary={true} onClick={handleSubmit(loginRequest)} disabled={pristine || submitting}/>
 							</div>
 							<div style={{width: 'auto', paddingRight: 20}}>
-								<RaisedButton label={Strings.login.new} icon={<IconRegister/>} style={{width: '110px'}} primary={true} onClick={reset} />
+								<RaisedButton label={Strings.login.new} icon={<IconRegister/>} style={{width: '110px'}} primary={true} onClick={reset} disabled={submitting}/>
 							</div>
 						</div>
 					</form>
 				</Paper>
+				<Snackbar
+					open={errMsg !== undefined}
+					message={errMsg || ''}
+					autoHideDuration={4000}
+					onRequestClose={clearLoginErr}
+				/>
 				<AppBar showMenuIconButton={false} title={<Footer/>} />
 			</div>
 		);

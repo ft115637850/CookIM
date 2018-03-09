@@ -1,38 +1,29 @@
-import Avatar from 'material-ui/Avatar';
-import {List, ListItem} from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
-import CommunicationChat from 'material-ui/svg-icons/communication/chat';
 import React from 'react';
+import Paper from 'material-ui/Paper';
+import AppBar from 'material-ui/AppBar';
+import Title from '../common/Title';
+import Footer from '../common/Footer';
+
+const style = {
+	minHeight: 400,
+	minWidth: 320,
+	margin: 'auto',
+	marginTop: 25,
+	padding: '15px 15px 70px 15px'
+};
 
 class MainPage extends React.Component {
 	componentDidMount() {
-		this.props.getContent();
+		//this.props.getContent();
 	}
 
 	render() {
-		const {friends} = this.props;
-
 		return (
-			<div>
-				{(friends.length > 0) && (
-					<div>
-						<List>
-							<Subheader>Recent chats</Subheader>
-							{
-								friends.map((friend, index) => {
-									return (
-										<ListItem
-											key={index}
-											primaryText={friend.name}
-											leftAvatar={<Avatar src={`images/${friend.avatar}`} />}
-											rightIcon={<CommunicationChat />}
-											onClick={() => this.props.history.push(`/mainPage/${friend.name}`)}
-										/>);
-								})
-							}
-						</List>
-					</div>
-				)}
+			<div style={{height: 'calc(-16px + 100vh)', display: 'flex', flexDirection: 'column'}}>
+				<AppBar showMenuIconButton={false} title={<Title moduleName="User login"/>} />
+				<Paper style={style} zDepth={2}>
+				</Paper>
+				<AppBar showMenuIconButton={false} title={<Footer/>} />
 			</div>
 		);
 	}

@@ -8,14 +8,16 @@ const { actions, selectors } = loginModule;
 const mapStateToProps = state => {
 	return {
 		pingResult: selectors.getPingResult(state),
-		isAuthenticated: selectors.isAuthenticated(state)
+		isAuthenticated: selectors.isAuthenticated(state),
+		errMsg: selectors.getErrMsg(state)
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
 		pingServer: () => dispatch(actions.pingServer()),
-		loginRequest: values => dispatch(actions.loginRequest(values))
+		loginRequest: values => dispatch(actions.loginRequest(values)),
+		clearLoginErr: () => dispatch(actions.loginFailure())
 	};
 };
 

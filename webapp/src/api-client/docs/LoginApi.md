@@ -1,4 +1,4 @@
-# rescaClient.LoginApi
+# CookIM.LoginApi
 
 All URIs are relative to *http://127.0.0.1:8080/api/v2*
 
@@ -15,8 +15,8 @@ login server
 
 ### Example
 ```javascript
-import rescaClient from 'rescaClient';
-let defaultClient = rescaClient.ApiClient.instance;
+import CookIM from 'CookIM';
+let defaultClient = CookIM.ApiClient.instance;
 
 // Configure HTTP basic authorization: basic
 let basic = defaultClient.authentications['basic'];
@@ -27,7 +27,7 @@ basic.password = 'YOUR PASSWORD';
 let oauth = defaultClient.authentications['oauth'];
 oauth.accessToken = 'YOUR ACCESS TOKEN';
 
-let apiInstance = new rescaClient.LoginApi();
+let apiInstance = new CookIM.LoginApi();
 apiInstance.login().then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
