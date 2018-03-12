@@ -1,6 +1,8 @@
 import React from 'react';
 import Paper from 'material-ui/Paper';
 import AppBar from 'material-ui/AppBar';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
 import Title from '../common/Title';
 import Footer from '../common/Footer';
 
@@ -14,16 +16,26 @@ const style = {
 
 class MainPage extends React.Component {
 	componentDidMount() {
-		//this.props.getContent();
 	}
 
 	render() {
+		const {mainMenuVisibility, toggleMainMenu} = this.props;
 		return (
 			<div style={{height: 'calc(-16px + 100vh)', display: 'flex', flexDirection: 'column'}}>
-				<AppBar showMenuIconButton={false} title={<Title moduleName="User login"/>} />
+				<AppBar showMenuIconButton={true} onLeftIconButtonClick={() => toggleMainMenu(!mainMenuVisibility)} title={<Title moduleName="Main Page"/>} />
 				<Paper style={style} zDepth={2}>
 				</Paper>
 				<AppBar showMenuIconButton={false} title={<Footer/>} />
+				<Drawer docked={false}
+					width={230}
+					open={mainMenuVisibility}
+					onRequestChange={open => {
+						toggleMainMenu(open);
+					}}
+				>
+					<MenuItem>Menu Item</MenuItem>
+					<MenuItem>Menu Item 2</MenuItem>
+				</Drawer>
 			</div>
 		);
 	}

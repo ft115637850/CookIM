@@ -1,20 +1,17 @@
 import { createReducer } from 'redux-create-reducer';
 import types from '../ActionTypes';
 // Reducer handlers
-import getContentSuccess from './getContentSuccess';
+import toggleMainMenu from './toggleMainMenu';
 
 const initialState = {
-	entities: {
-		friends: {
-			byId: {},
-			allIds: []
-		}
+	userData: {
+		showMainMenu: false
 	}
 };
 
 function createReducerInModule() {
 	return createReducer(initialState, {
-		[types.GET_CONTENT_SUCCESS]: getContentSuccess
+		[types.SHOW_MAIN_MENU]: toggleMainMenu
 	});
 }
 

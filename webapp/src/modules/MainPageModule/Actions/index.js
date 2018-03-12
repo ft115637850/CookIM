@@ -1,2 +1,6 @@
 import asyncActions from './AsyncActions';
-export default asyncActions;
+import actionCreators from './ActionCreators';
+export default {
+	...asyncActions,
+	...actionCreators
+};

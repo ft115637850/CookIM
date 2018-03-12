@@ -4,16 +4,14 @@ import MainPageModule from '../../modules/MainPageModule';
 const { selectors, actions } = MainPageModule;
 
 const mapStateToProps = state => {
-	return {/*
-		friends: selectors.allFriends(state),
-		idleFriends: selectors.idleFriends(state),
-		busyFriends: selectors.busyFriends(state)*/
+	return {
+		mainMenuVisibility: selectors.getMainMenuVisibility(state)
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		//getContent: () => dispatch(actions.getContent())
+		toggleMainMenu: toShow => dispatch(actions.showMainMenu(toShow))
 	};
 };
 
