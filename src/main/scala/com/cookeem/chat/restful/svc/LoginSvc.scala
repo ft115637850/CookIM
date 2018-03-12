@@ -33,10 +33,9 @@ class LoginSvc(implicit ec: ExecutionContext) extends Directives {
   def login(userInfo :(String, String, String)) =
     path("api" / "v2" / "login" ~ Slash.?) {
       options {
-        val result = """{"result" : "ok"}""".stripMargin
         complete(HttpResponse(
           200,
-          entity = HttpEntity(ContentType(MediaTypes.`application/json`), result)
+          entity = HttpEntity(ContentType(MediaTypes.`application/json`), "")
         ))
       } ~ get {
         if (userInfo._1 == "") {
