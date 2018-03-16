@@ -145,7 +145,9 @@ object CookIM extends App {
 
       val settings = CorsSettings.defaultSettings.copy(
         allowedOrigins = HttpOriginRange(
-          HttpOrigin("http://localhost:3000")
+          HttpOrigin("http://localhost:3000"),
+          HttpOrigin("http://localhost:8080"),
+          HttpOrigin("https://im.cookeem.com")
         ),
         allowedMethods = immutable.Seq(GET, POST, HEAD, OPTIONS, PUT)
       )
