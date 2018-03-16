@@ -174,21 +174,6 @@ object MongoLogic {
     }.flatMap(t => t)
   }
 
-  def fetchUser(login: String): Future[(String, String)] = {
-    for {
-      user <- findCollectionOne[User](usersCollection, document("login" -> login))
-      (pwdSha1, uid) <- {
-        if (user != null) {
-          Future(user.password, user._id)
-        } else {
-          Future("", "")
-        }
-      }
-    } yield {
-      (pwdSha1, uid)
-    }
-  }
-
   def loginAction(login: String, pwd: String): Future[(String, String)] = {
     for {
       user <- findCollectionOne[User](usersCollection, document("login" -> login))
@@ -939,8 +924,7 @@ object MongoLogic {
     updateCollection(sessionsCollection, selector, update)
   }
 
-  def getSessionLastMessage(userTokenStr: String, sessionid: String): Future[(Session, Message, User)] = {
-    val UserToken(uid, nickname, avatar) = verifyUserToken(userTokenStr)
+  def getSessionLastMessage(uid: String, sessionid: String): Future[(Session, Message, User)] = {
     if (uid != "") {
       for {
         session <- findCollectionOne[Session](sessionsCollection, document("_id" -> sessionid))
@@ -1280,5 +1264,20 @@ object MongoLogic {
       consoleLog("ERROR", s"create thumb error: $e")
     }
     futureThumbid
+  }
+
+  def fetchUser(login: String): Future[(String, String)] = {
+    for {
+      user <- findCollectionOne[User](usersCollection, document("login" -> login))
+      (pwdSha1, uid) <- {
+        if (user != null) {
+          Future(user.password, user._id)
+        } else {
+          Future("", "")
+        }
+      }
+    } yield {
+      (pwdSha1, uid)
+    }
   }
 }

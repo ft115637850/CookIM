@@ -36,4 +36,9 @@ object JwtOps {
         Map[String, Any]()
     }
   }
+
+  object JWT {
+    def apply(payload: Map[String, Any]) = encodeJwt(payload)
+    def unapply(token: String): Option[Map[String, Any]] = Some(decodeJwt(token))
+  }
 }

@@ -339,50 +339,7 @@ object Controller {
         )
       )
     } else {
-      val uid = userToken.uid
-      listSessions(uid, isPublic).map { sessionInfoList =>
-        Future.sequence(
-          sessionInfoList.map { case (session, sessionStatus) =>
-            getSessionLastMessage(userTokenStr, session._id).map { case (sessionLast, messageLast, userLast) =>
-              var jsonMessage: JsValue = JsNull
-              if (messageLast != null && userLast != null) {
-                var content = messageLast.content
-                if (messageLast.thumbid != "") {
-                  content = "send a [PHOTO]"
-                } else if (messageLast.fileid != "") {
-                  content = "send a [FILE]"
-                }
-                jsonMessage = Json.obj(
-                  "uid" -> userLast._id,
-                  "nickname" -> userLast.nickname,
-                  "avatar" -> userLast.avatar,
-                  "msgType" -> messageLast.msgType,
-                  "content" -> content,
-                  "dateline" -> timeToStr(messageLast.dateline)
-                )
-              }
-              Json.obj(
-                "sessionid" -> session._id,
-                "createuid" -> session.createuid,
-                "ouid" -> session.ouid,
-                "sessionName" -> session.sessionName.take(30),
-                "sessionType" -> session.sessionType,
-                "sessionIcon" -> session.sessionIcon,
-                "publicType" -> session.publicType,
-                "lastUpdate" -> timeToStr(session.lastUpdate),
-                "dateline" -> timeToStr(session.dateline),
-                "newCount" -> sessionStatus.newCount,
-                "message" -> jsonMessage
-              )
-            }
-          }
-        )
-      }.flatMap(t => t).map { sessions =>
-        Json.obj(
-          "errmsg" -> "",
-          "sessions" -> sessions
-        )
-      }
+      listUsrSessions(userToken.uid, isPublic)
     }
   }
 
@@ -1009,5 +966,50 @@ object Controller {
     getGridFile(id)
   }
 
-
+  // v2 controllers
+  def listUsrSessions(uid: String, isPublic: Boolean)(implicit ec: ExecutionContext): Future[JsObject] = {
+    listSessions(uid, isPublic).map { sessionInfoList =>
+      Future.sequence(
+        sessionInfoList.map { case (session, sessionStatus) =>
+          getSessionLastMessage(uid, session._id).map { case (sessionLast, messageLast, userLast) =>
+            var jsonMessage: JsValue = JsNull
+            if (messageLast != null && userLast != null) {
+              var content = messageLast.content
+              if (messageLast.thumbid != "") {
+                content = "send a [PHOTO]"
+              } else if (messageLast.fileid != "") {
+                content = "send a [FILE]"
+              }
+              jsonMessage = Json.obj(
+                "uid" -> userLast._id,
+                "nickname" -> userLast.nickname,
+                "avatar" -> userLast.avatar,
+                "msgType" -> messageLast.msgType,
+                "content" -> content,
+                "dateline" -> timeToStr(messageLast.dateline)
+              )
+            }
+            Json.obj(
+              "sessionid" -> session._id,
+              "createuid" -> session.createuid,
+              "ouid" -> session.ouid,
+              "sessionName" -> session.sessionName.take(30),
+              "sessionType" -> session.sessionType,
+              "sessionIcon" -> session.sessionIcon,
+              "publicType" -> session.publicType,
+              "lastUpdate" -> timeToStr(session.lastUpdate),
+              "dateline" -> timeToStr(session.dateline),
+              "newCount" -> sessionStatus.newCount,
+              "message" -> jsonMessage
+            )
+          }
+        }
+      )
+    }.flatMap(t => t).map { sessions =>
+      Json.obj(
+        "errmsg" -> "",
+        "sessions" -> sessions
+      )
+    }
+  }
 }

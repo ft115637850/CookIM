@@ -11,7 +11,7 @@ import com.cookeem.chat.mongo.MongoLogic._
 import com.cookeem.chat.restful.Controller._
 import com.cookeem.chat.websocket.{ChatSession, PushSession}
 import play.api.libs.json.Json
-import com.cookeem.chat.restful.svc.LoginSvc
+import com.cookeem.chat.restful.svc.{LoginSvc, ContentSvc}
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success}
 
@@ -29,7 +29,6 @@ object RouteOps {
   def routeLogic(implicit ec: ExecutionContext, system: ActorSystem, materializer: ActorMaterializer, notificationActor: ActorRef) = {
     routeWebsocket ~
     routeAsset ~
-    new LoginSvc().route ~
     routeUserRegister ~
     routeGetUserToken ~
     routeGetSessionToken ~
@@ -60,7 +59,9 @@ object RouteOps {
     routeGetUserMenu ~
     routeListNotifications ~
     routeGetFileMeta ~
-    routeGetFile
+    routeGetFile ~
+    new LoginSvc().route ~
+    new ContentSvc().route
   }
 
   // mix multiform to Future[Map[String, ByteString]].
