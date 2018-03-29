@@ -1,15 +1,15 @@
-# CookIM.GetContentApi
+# CookIM.ListSessionsApi
 
 All URIs are relative to *http://127.0.0.1:8080/api/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getContent**](GetContentApi.md#getContent) | **GET** /getContent | get content
+[**listSessions**](ListSessionsApi.md#listSessions) | **GET** /{isPublicOrPrivate}/listSessions | get content
 
 
-<a name="getContent"></a>
-# **getContent**
-> Content getContent()
+<a name="listSessions"></a>
+# **listSessions**
+> SessionList listSessions(isPublicOrPrivate)
 
 get content
 
@@ -27,8 +27,11 @@ basic.password = 'YOUR PASSWORD';
 let oauth = defaultClient.authentications['oauth'];
 oauth.accessToken = 'YOUR ACCESS TOKEN';
 
-let apiInstance = new CookIM.GetContentApi();
-apiInstance.getContent().then((data) => {
+let apiInstance = new CookIM.ListSessionsApi();
+
+let isPublicOrPrivate = "isPublicOrPrivate_example"; // String | the indicator of whether it is public or private
+
+apiInstance.listSessions(isPublicOrPrivate).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -37,11 +40,14 @@ apiInstance.getContent().then((data) => {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **isPublicOrPrivate** | **String**| the indicator of whether it is public or private | 
 
 ### Return type
 
-[**Content**](Content.md)
+[**SessionList**](SessionList.md)
 
 ### Authorization
 

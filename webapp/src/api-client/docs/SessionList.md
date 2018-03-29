@@ -1,8 +1,8 @@
-# CookIM.Content
+# CookIM.SessionList
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**friends** | [**[Friend]**](Friend.md) |  | [optional] 
+**sessions** | [**[Session]**](Session.md) |  | [optional] 
 
 

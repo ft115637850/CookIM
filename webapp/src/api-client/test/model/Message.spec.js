@@ -28,7 +28,7 @@
   var instance;
 
   beforeEach(function() {
-    instance = new CookIM.LoginResult();
+    instance = new CookIM.Message();
   });
 
   var getProperty = function(object, getter, property) {
@@ -47,34 +47,46 @@
       object[property] = value;
   }
 
-  describe('LoginResult', function() {
-    it('should create an instance of LoginResult', function() {
-      // uncomment below and update the code to test LoginResult
-      //var instane = new CookIM.LoginResult();
-      //expect(instance).to.be.a(CookIM.LoginResult);
-    });
-
-    it('should have the property login (base name: "login")', function() {
-      // uncomment below and update the code to test the property login
-      //var instane = new CookIM.LoginResult();
-      //expect(instance).to.be();
+  describe('Message', function() {
+    it('should create an instance of Message', function() {
+      // uncomment below and update the code to test Message
+      //var instane = new CookIM.Message();
+      //expect(instance).to.be.a(CookIM.Message);
     });
 
     it('should have the property uid (base name: "uid")', function() {
       // uncomment below and update the code to test the property uid
-      //var instane = new CookIM.LoginResult();
+      //var instane = new CookIM.Message();
       //expect(instance).to.be();
     });
 
-    it('should have the property userToken (base name: "userToken")', function() {
-      // uncomment below and update the code to test the property userToken
-      //var instane = new CookIM.LoginResult();
+    it('should have the property nickname (base name: "nickname")', function() {
+      // uncomment below and update the code to test the property nickname
+      //var instane = new CookIM.Message();
       //expect(instance).to.be();
     });
 
-    it('should have the property msg (base name: "msg")', function() {
-      // uncomment below and update the code to test the property msg
-      //var instane = new CookIM.LoginResult();
+    it('should have the property avatar (base name: "avatar")', function() {
+      // uncomment below and update the code to test the property avatar
+      //var instane = new CookIM.Message();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property msgType (base name: "msgType")', function() {
+      // uncomment below and update the code to test the property msgType
+      //var instane = new CookIM.Message();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property content (base name: "content")', function() {
+      // uncomment below and update the code to test the property content
+      //var instane = new CookIM.Message();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property dateline (base name: "dateline")', function() {
+      // uncomment below and update the code to test the property dateline
+      //var instane = new CookIM.Message();
       //expect(instance).to.be();
     });
 

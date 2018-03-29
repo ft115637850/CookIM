@@ -19,7 +19,7 @@ const style = {
 	},
 	content: {
 		minHeight: 400,
-		minWidth: 320,
+		minWidth: 600,
 		margin: 'auto',
 		marginTop: 25,
 		padding: '15px 15px 70px 15px'

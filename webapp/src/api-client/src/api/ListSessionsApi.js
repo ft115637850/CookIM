@@ -13,18 +13,18 @@
 
 
 import ApiClient from "../ApiClient";
-import Content from '../model/Content';
+import SessionList from '../model/SessionList';
 
 /**
-* GetContent service.
-* @module api/GetContentApi
+* ListSessions service.
+* @module api/ListSessionsApi
 * @version 1.0.0
 */
-export default class GetContentApi {
+export default class ListSessionsApi {
 
     /**
-    * Constructs a new GetContentApi. 
-    * @alias module:api/GetContentApi
+    * Constructs a new ListSessionsApi. 
+    * @alias module:api/ListSessionsApi
     * @class
     * @param {module:ApiClient} [apiClient] Optional API client implementation to use,
     * default to {@link module:ApiClient#instance} if unspecified.
@@ -37,13 +37,20 @@ export default class GetContentApi {
 
     /**
      * get content
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Content} and HTTP response
+     * @param {module:model/String} isPublicOrPrivate the indicator of whether it is public or private
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/SessionList} and HTTP response
      */
-    getContentWithHttpInfo() {
+    listSessionsWithHttpInfo(isPublicOrPrivate) {
       let postBody = null;
+
+      // verify the required parameter 'isPublicOrPrivate' is set
+      if (isPublicOrPrivate === undefined || isPublicOrPrivate === null) {
+        throw new Error("Missing the required parameter 'isPublicOrPrivate' when calling listSessions");
+      }
 
 
       let pathParams = {
+        'isPublicOrPrivate': isPublicOrPrivate
       };
       let queryParams = {
       };
@@ -55,10 +62,10 @@ export default class GetContentApi {
       let authNames = ['basic', 'oauth'];
       let contentTypes = [];
       let accepts = ['application/json'];
-      let returnType = Content;
+      let returnType = SessionList;
 
       return this.apiClient.callApi(
-        '/getContent', 'GET',
+        '/{isPublicOrPrivate}/listSessions', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -66,10 +73,11 @@ export default class GetContentApi {
 
     /**
      * get content
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Content}
+     * @param {module:model/String} isPublicOrPrivate the indicator of whether it is public or private
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SessionList}
      */
-    getContent() {
-      return this.getContentWithHttpInfo()
+    listSessions(isPublicOrPrivate) {
+      return this.listSessionsWithHttpInfo(isPublicOrPrivate)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

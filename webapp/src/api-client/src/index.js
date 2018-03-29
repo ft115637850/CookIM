@@ -13,11 +13,12 @@
 
 
 import ApiClient from './ApiClient';
-import Content from './model/Content';
-import Friend from './model/Friend';
 import LoginResult from './model/LoginResult';
+import Message from './model/Message';
 import PingPong from './model/PingPong';
-import GetContentApi from './api/GetContentApi';
+import Session from './model/Session';
+import SessionList from './model/SessionList';
+import ListSessionsApi from './api/ListSessionsApi';
 import LoginApi from './api/LoginApi';
 import PingPongApi from './api/PingPongApi';
 
@@ -61,22 +62,16 @@ export {
     ApiClient,
 
     /**
-     * The Content model constructor.
-     * @property {module:model/Content}
-     */
-    Content,
-
-    /**
-     * The Friend model constructor.
-     * @property {module:model/Friend}
-     */
-    Friend,
-
-    /**
      * The LoginResult model constructor.
      * @property {module:model/LoginResult}
      */
     LoginResult,
+
+    /**
+     * The Message model constructor.
+     * @property {module:model/Message}
+     */
+    Message,
 
     /**
      * The PingPong model constructor.
@@ -85,10 +80,22 @@ export {
     PingPong,
 
     /**
-    * The GetContentApi service constructor.
-    * @property {module:api/GetContentApi}
+     * The Session model constructor.
+     * @property {module:model/Session}
+     */
+    Session,
+
+    /**
+     * The SessionList model constructor.
+     * @property {module:model/SessionList}
+     */
+    SessionList,
+
+    /**
+    * The ListSessionsApi service constructor.
+    * @property {module:api/ListSessionsApi}
     */
-    GetContentApi,
+    ListSessionsApi,
 
     /**
     * The LoginApi service constructor.

@@ -41,17 +41,26 @@ paths:
           description: returns token
           schema:
               $ref: '#/definitions/LoginResult'
-  /getContent:
+  /{isPublicOrPrivate}/listSessions:
     get:
       summary: get content
-      operationId: getContent
+      parameters:
+        - name: isPublicOrPrivate
+          description: the indicator of whether it is public or private
+          in: path
+          type: string
+          enum:
+            - public
+            - private
+          required: true
+      operationId: listSessions
       tags:
-        - getContent
+        - listSessions
       responses:
         200:
           description: returns content
           schema:
-              $ref: '#/definitions/Content'
+              $ref: '#/definitions/SessionList'
 definitions:
   PingPong:
     type: object
@@ -69,23 +78,61 @@ definitions:
         type: string
       msg:
         type: string
-  Content:
+  SessionList:
     type: object
     properties:
-      friends:
+      sessions:
         type: array
         items:
-          $ref: '#/definitions/Friend'
-  Friend:
+          $ref: '#/definitions/Session'
+  Session:
     type: object
     properties:
-      id:
+      sessionid:
         type: string
-      name:
+      createuid:
         type: string
-      gender:
+      ouid:
         type: string
-      status:
+      sessionName:
+        type: string
+      sessionType:
+        type: integer
+        format: int32
+      sessionIcon:
+        type: string
+      publicType:
+        type: integer
+        format: int32
+      lastUpdate:
+        type: string
+        format: date-time
+        x-chance-type: date
+      dateline:
+        type: string
+        format: date-time
+        x-chance-type: date
+      newCount:
+        type: integer
+        format: int32
+      message:
+        type: object
+        items:
+          $ref: '#/definitions/Message'
+  Message:
+    type: object
+    properties:
+      uid:
+        type: string
+      nickname:
         type: string
       avatar:
         type: string
+      msgType:
+        type: string
+      content:
+        type: string
+      dateline:
+        type: string
+        format: date-time
+        x-chance-type: date

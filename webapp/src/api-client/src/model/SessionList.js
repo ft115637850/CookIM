@@ -13,21 +13,21 @@
 
 
 import ApiClient from '../ApiClient';
-import Friend from './Friend';
+import Session from './Session';
 
 
 
 
 
 /**
-* The Content model module.
-* @module model/Content
+* The SessionList model module.
+* @module model/SessionList
 * @version 1.0.0
 */
-export default class Content {
+export default class SessionList {
     /**
-    * Constructs a new <code>Content</code>.
-    * @alias module:model/Content
+    * Constructs a new <code>SessionList</code>.
+    * @alias module:model/SessionList
     * @class
     */
 
@@ -43,31 +43,31 @@ export default class Content {
     }
 
     /**
-    * Constructs a <code>Content</code> from a plain JavaScript object, optionally creating a new instance.
+    * Constructs a <code>SessionList</code> from a plain JavaScript object, optionally creating a new instance.
     * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
     * @param {Object} data The plain JavaScript object bearing properties of interest.
-    * @param {module:model/Content} obj Optional instance to populate.
-    * @return {module:model/Content} The populated <code>Content</code> instance.
+    * @param {module:model/SessionList} obj Optional instance to populate.
+    * @return {module:model/SessionList} The populated <code>SessionList</code> instance.
     */
     static constructFromObject(data, obj) {
         if (data) {
-            obj = obj || new Content();
+            obj = obj || new SessionList();
 
             
             
             
 
-            if (data.hasOwnProperty('friends')) {
-                obj['friends'] = ApiClient.convertToType(data['friends'], [Friend]);
+            if (data.hasOwnProperty('sessions')) {
+                obj['sessions'] = ApiClient.convertToType(data['sessions'], [Session]);
             }
         }
         return obj;
     }
 
     /**
-    * @member {Array.<module:model/Friend>} friends
+    * @member {Array.<module:model/Session>} sessions
     */
-    friends = undefined;
+    sessions = undefined;
 
 
 
