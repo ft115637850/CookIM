@@ -1,17 +1,17 @@
 import { connect } from 'react-redux';
 import ChatsPublic from './ChatsPublic';
-import MainPageModule from '../../modules/MainPageModule';
-const { selectors, actions } = MainPageModule;
+import ChatsPublicModule from '../../../modules/ChatsPublicModule';
+const { selectors, actions } = ChatsPublicModule;
 
 const mapStateToProps = state => {
 	return {
-		//mainMenuVisibility: selectors.getMainMenuVisibility(state)
+		publicSessions: selectors.allSessions(state)
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		//toggleMainMenu: toShow => dispatch(actions.showMainMenu(toShow))
+		getPublicSessions: () => dispatch(actions.getSessionList())
 	};
 };
 

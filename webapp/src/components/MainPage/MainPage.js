@@ -8,6 +8,7 @@ import IconComfy from 'material-ui/svg-icons/image/view-comfy';
 import IconPeople from 'material-ui/svg-icons/social/people';
 import Title from '../common/Title';
 import Footer from '../common/Footer';
+import ChatsPublic from './ChatsPublic';
 
 const style = {
 	subheader: {
@@ -36,6 +37,7 @@ class MainPage extends React.Component {
 			<div style={{height: 'calc(-16px + 100vh)', display: 'flex', flexDirection: 'column'}}>
 				<AppBar showMenuIconButton={true} onLeftIconButtonClick={() => toggleMainMenu(!mainMenuVisibility)} title={<Title moduleName="Main Page"/>} />
 				<Paper style={style.content} zDepth={2}>
+					<ChatsPublic/>
 				</Paper>
 				<AppBar showMenuIconButton={false} title={<Footer/>} />
 				<Drawer docked={false}

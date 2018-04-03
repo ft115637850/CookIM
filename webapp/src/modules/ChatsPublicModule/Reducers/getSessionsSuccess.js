@@ -3,8 +3,8 @@ import update from 'immutability-helper';
 function addSessionToState(state, sessionInfo) {
 	const { sessionid } = sessionInfo;
 	return update(state, {
-		entities: {
-			nodesInfo: {
+		userData: {
+			sessions: {
 				byId: {
 					[sessionid]: {
 						$set: sessionInfo
@@ -30,7 +30,6 @@ function getSessionsSuccess(state, action) {
 	sessions.forEach(sessionInfo => {
 		newState = addSessionToState(newState, sessionInfo);
 	});
-
 	return newState;
 }
 export default getSessionsSuccess;
